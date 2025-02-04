@@ -187,7 +187,7 @@ const CourseVideos = () => {
         </div>
 
         {CATEGORIES.map(category => (
-          <div key={category.id} className="mb-12">
+          <div key={category.id} className="lg:mb-12 mb-20" >
             <div className="flex items-center space-x-4 mb-6">
               <div className="relative pl-6">
                 <div className={`absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b ${category.color} rounded-full`}></div>
@@ -202,8 +202,8 @@ const CourseVideos = () => {
               </div>
             </div>
 
-            <div className="relative bg-white rounded-xl shadow-md p-6">
-              <div className="flex items-center justify-between mb-4">
+            <div className="relative bg-white rounded-xl shadow-md p-6 ">
+              <div className="flex items-center justify-between lg:mb-4 mb-2">
                 <div className="flex items-center">
                   <div className={`w-8 h-8 ${category.bgColor} rounded-lg flex items-center justify-center mr-3`}>
                     <span className="text-white font-bold">{category.name[0]}</span>

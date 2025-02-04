@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { setUserDetails } from './store/userSlice'
 import { fetchUserDetail } from "./utils/fetchUserDetail";
-
+import BackToTopButton from './components/BackToTopButtom'
 const App = () => {
   const dispatch = useDispatch();
   
@@ -26,6 +26,7 @@ const App = () => {
         <Outlet />
       </main>
       <Footer />
+      <BackToTopButton/>
       <Toaster/>
     </div>
   )

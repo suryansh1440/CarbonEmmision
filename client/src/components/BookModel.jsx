@@ -39,7 +39,7 @@ const Model = () => {
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           
-          <Stage environment="studio" intensity={0.5}>
+          <Stage environment="city" intensity={0.5}>
             <Car />
             {/* <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
           </Stage>
