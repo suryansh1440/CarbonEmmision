@@ -63,9 +63,9 @@ const UserMenu = ({handleCloseAccount = () => {}}) => {
                     <div onClick={() => handleLinkClick("/dashboard/performance")} className='text-sm text-gray-500 hover:bg-orange-100 px-3 py-2 rounded-md w-full cursor-pointer transition-colors'>
                         Performance
                     </div>
-                    <div onClick={() => handleLinkClick("/dashboard/my-courses")} className='text-sm text-gray-500 hover:bg-orange-100 px-3 py-2 rounded-md w-full cursor-pointer transition-colors'>
+                    {/* <div onClick={() => handleLinkClick("/dashboard/my-courses")} className='text-sm text-gray-500 hover:bg-orange-100 px-3 py-2 rounded-md w-full cursor-pointer transition-colors'>
                         My Courses
-                    </div>
+                    </div> */}
                     <button onClick={handleLogout} className='text-sm bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 w-full transition-colors'>
                         Logout
                     </button>

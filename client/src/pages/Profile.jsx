@@ -69,8 +69,8 @@ const Profile = () => {
     }
 
     return (
-        <div className='max-w-3xl mx-auto p-6'>
-            <div className='bg-white rounded-lg shadow-md p-8'>
+        <div className='max-w-3xl mx-auto lg:p-6'>
+            <div className='bg-white rounded-lg lg:shadow-md lg:p-8 p-1'>
                 <div className='flex flex-col items-center mb-8'>
                     <div className='w-32 h-32 bg-orange-100 rounded-full flex justify-center items-center drop-shadow-sm overflow-hidden mb-4'>
                         {user.avatar ? 
