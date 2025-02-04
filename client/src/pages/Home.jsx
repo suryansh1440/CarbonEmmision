@@ -2,8 +2,11 @@ import React from 'react'
 import BookModel from '../components/BookModel'
 import CourseVideos from '../components/CourseVideos'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Home = () => {
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user)
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -14,12 +17,21 @@ const Home = () => {
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
           <h1 className="text-6xl font-bold text-white tracking-widest mb-4">Welcome to Kid Tutor</h1>
           <p className="text-2xl text-gray-200 mb-8">Discover Amazing Experiences</p>
-          <Link 
-            to="/practice" 
-            className="px-8 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold"
-          >
-            Get Started
-          </Link>
+          {user._id ? (
+            <Link 
+              to="/practice" 
+              className="px-8 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold"
+            >
+              Get Started
+            </Link>
+          ) : (
+            <Link 
+              to="/login" 
+              className="px-12 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
 
@@ -35,12 +47,6 @@ const Home = () => {
           <p className="text-xl text-blue-100 mb-8">
             Join thousands of students already learning with us
           </p>
-          <Link
-            to="/register"
-            className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold"
-          >
-            Sign Up Now
-          </Link>
         </div>
       </div>
     </div>

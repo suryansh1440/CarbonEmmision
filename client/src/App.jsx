@@ -22,7 +22,7 @@ const App = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 overflow-hidden">
       <Header />
-      <main className='flex-grow min-h-[calc(100vh-10rem)] transition-all duration-300 pt-16'>
+      <main className='flex-grow min-h-[calc(100vh-10rem)] lg:mt-0 mt-10 transition-all duration-300 pt-16'>
         <Outlet />
       </main>
       <Footer />

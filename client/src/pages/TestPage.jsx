@@ -248,7 +248,7 @@ const TestPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 py-8 px-4 transition-all duration-300">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 transition-all duration-300 hover:shadow-indigo-200">
+        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl lg:p-8 p-4 transition-all duration-300 hover:shadow-indigo-200">
           <div className="text-center mb-10">
             <div className="flex items-center justify-center space-x-4 mb-6">
               <div className="bg-indigo-100 rounded-lg px-4 py-2">
@@ -312,7 +312,7 @@ const TestPage = () => {
             {questions.map((q, index) => (
               <div 
                 key={index}
-                className={`bg-white rounded-2xl p-6 shadow-lg transition-all duration-500 transform ${
+                className={`bg-white rounded-2xl p-4 shadow-lg transition-all duration-500 transform ${
                   index === currentQuestionIndex ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 hidden'
                 } hover:shadow-xl border border-gray-100`}
               >

@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import UserMenu from './UserMenu';
+import { LuContact } from "react-icons/lu";
+import { MdAccountCircle } from "react-icons/md";
+import { MdLogin } from "react-icons/md";
 
 const Header = () => {
     const [isAccountOpen, setIsAccountOpen] = useState(false);
@@ -23,45 +26,50 @@ const Header = () => {
   }
 
     return (
-        <header className='fixed top-0 z-50 bg-white shadow-md w-full'>
-            <div className='container mx-auto px-8 flex items-center justify-between'>
+        <header className='fixed top-0 z-50 lg:pt-0 pt-1 bg-white shadow-md w-full lg:h-[10vh] h-[18vh]'>
+
+            <div className='container mx-auto lg:px-8 px-4 flex items-center justify-between'>
                 {/* Logo */}
-                <Link to="/" className='flex items-center ml-4'>
+                <Link to="/" className='flex items-center lg:w-[70px] w-[50px]    ml-4'>
                     <img
                         src={MainLogo}
+
                         alt="Main Logo"
-                        width={75}
                         height={75}
                     />
                 </Link>
 
                 {/* Centered Search */}
-                <Link to="/search" className='absolute left-1/2 transform -translate-x-1/2'>
+
+                <Link to="/search" className='lg:block hidden absolute left-1/2 transform -translate-x-1/2'>
                     <Search />
                 </Link>
 
                 
 
                 {/* Navigation Links */}
-                <nav className='flex items-center space-x-8'>
+                <nav className='items-center space-x-8 flex'>
                   {
-                    user?._id && ( <Link to="/Practice" className="">
+                    user?._id && ( <Link to="/Practice" className=" text-lg hover:text-blue-600 transition-colors">
                       Practice
                   </Link>)
                   }
                
                     <Link 
                         to="/contact-us" 
-                        className='hover:text-blue-600 transition-colors'
+                        className='text-lg hover:text-blue-600 transition-colors'
                     >
-                        Contact Us
+                        <p className='lg:hidden block text-2xl'><LuContact /></p>
+                        <p className='lg:block hidden'>Contact Us</p>
                     </Link>
+                    
 
                     {
                   user?._id ? (
                     <div className='relative'>
-                      <div onClick={handleAccount} className='flex items-center gap-2'>
-                        <p>Account</p>
+                      <div onClick={handleAccount} className='flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors text-lg'>
+                        <p className='lg:block hidden'>Account</p>
+                        <p className='lg:hidden block text-2xl'><MdAccountCircle /></p>
                         {isAccountOpen ? (
                           <FaAngleUp className="text-2xl" />
                         ) : (
@@ -80,11 +88,20 @@ const Header = () => {
                     </div>
                   ):
                   (
-                    <Link to="/login" className='text-lg px-2'>Login</Link>
+                    <Link to="/login" className='text-lg px-2 hover:text-blue-600 transition-colors'>
+                        <p className='lg:block hidden'>Login</p>
+                        <p className='lg:hidden block text-2xl'><MdLogin /></p>
+                      </Link>
                   )
                 }
                 </nav>
             </div>
+            <div className='mt-1'>
+            <Link to="/search" className='lg:hidden block absolute w-[95%] left-1/2 transform -translate-x-1/2'>
+                    <Search />
+                </Link>
+            </div>
+
         </header>
     )
 }

@@ -46,6 +46,21 @@ export const registerUserController = async (req, res) => {
             }),
             
         });
+
+        const accessToken = await generateAccessToken(savedUser._id);
+        const refreshToken = await generateRefreshToken(savedUser._id);
+
+        
+        const cookieOptions = {
+            httpOnly:true,
+            secure:true,
+            sameSite:"None",
+        }
+
+        res.cookie("accessToken",accessToken,cookieOptions)
+        res.cookie("refreshToken",refreshToken,cookieOptions)
+
+
         return res.status(200).json({
             message: "User registered successfully",
             success: true,
@@ -400,13 +415,13 @@ export const logoutUserController = async (req, res) => {
          }
          const userId = verifyRefreshToken.id;
          const newAccessToken = await generateAccessToken(userId);
- 
+
          res.cookie("accessToken",newAccessToken,{
              httpOnly:true,
              secure:true,
              sameSite:"None",
          });
- 
+
          return res.status(200).json({
              message: "New Access token generated successfully",
              success: true,

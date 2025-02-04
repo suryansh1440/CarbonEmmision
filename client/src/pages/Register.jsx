@@ -6,9 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Axios from '../utils/Axios';
 import SummeryApi from '../common/SummeryApi';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from '../store/userSlice';
+import { fetchUserDetail } from '../utils/fetchUserDetail';
+
 
 const Register = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -30,7 +35,6 @@ const Register = () => {
     const validateData = Object.values(data).every(value => value)
 
     const handleSubmit = async (e) => {
-        console.log(data);
         e.preventDefault()
 
         if (data.password !== data.confirmPassword) {
@@ -50,6 +54,13 @@ const Register = () => {
             })
 
             if (response.data.success) {
+                console.log(response.data.data);
+                // Store tokens
+                localStorage.setItem("accessToken", response.data.data.accessToken)
+                localStorage.setItem("refreshToken", response.data.data.refreshToken)
+                // Fetch and set user details
+                const userDetails = await fetchUserDetail()
+                dispatch(setUserDetails(userDetails.data))
                 toast.success(response.data.message)
                 setData({
                     username: "",

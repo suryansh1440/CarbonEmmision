@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedContainer, AnimatedFade, AnimatedScale } from '../components/animations/AnimatedContainer';
+import { use } from 'react';
 
 const Pratice = () => {
   const [topic, setTopic] = useState('');
@@ -123,6 +124,13 @@ const Pratice = () => {
     setTopic(topics[randomIndex]);
   };
 
+  useEffect(() => {
+    if(!user._id){
+      navigate('/');
+    }
+  }, []);
+
+
   return (
     <AnimatedContainer className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
@@ -141,7 +149,7 @@ const Pratice = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Select or speak your topic to get AI-generated content suggestions
+            Select or speak your topic to get AI-generated question suggestions
           </motion.p>
         </AnimatedFade>
 
@@ -263,7 +271,7 @@ const Pratice = () => {
               whileTap={topic.trim() ? { scale: 0.98 } : {}}
             >
               <FaRocket className={topic.trim() ? 'animate-bounce' : ''} />
-              Generate Content
+              Generate Questions
             </motion.button>
           </div>
 

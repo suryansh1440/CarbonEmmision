@@ -12,6 +12,7 @@ import Dashboard from "../layout/Dashboard";
 import Profile from "../pages/Profile";
 import Performance from "../pages/Performance";
 
+
 const router = createBrowserRouter([
     {
         path: "/",

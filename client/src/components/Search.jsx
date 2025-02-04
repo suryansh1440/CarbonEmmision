@@ -1,17 +1,33 @@
 import React from 'react'
 import { IoSearchOutline, IoCloseOutline } from "react-icons/io5";
 import { TypeAnimation } from 'react-type-animation';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Search = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const isSearch = location.pathname === "/search";
     return (
         <div className='w-full min-w-[300px] lg:min-w-[400px] lg:h-12 h-11 rounded-lg border border-gray-300 overflow-hidden flex items-center text-neutral-500 bg-slate-100 group focus-within:border-primary-200 m'>
-            <button className='flex items-center justify-center h-full p-3 text-gray-500 group-focus-within:text-primary-200'>
+            <button className='lg:flex hidden items-center justify-center h-full p-3 text-gray-500 group-focus-within:text-primary-200'>
                 <IoSearchOutline className='text-2xl' />
             </button>
+            {
+                isSearch ? (
+                    <button onClick={() => { navigate(-1) }} className='lg:hidden block items-center justify-center h-full p-3 text-gray-500 group-focus-within:text-primary-200'>
+
+                        <IoCloseOutline className='text-2xl' />
+                    </button>
+                ) : (
+
+            <button className='lg:hidden block items-center justify-center h-full p-3 text-gray-500 group-focus-within:text-primary-200'>
+
+            <IoSearchOutline className='text-2xl' />
+            </button>
+                )
+            }
+
+
 
             <div className='w-full h-full flex items-center'>
                 {!isSearch ? (
