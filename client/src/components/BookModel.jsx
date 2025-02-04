@@ -1,7 +1,7 @@
 import React, { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF, Stage } from '@react-three/drei'
-import { OrbitControls } from '@react-three/drei'
+// import { OrbitControls } from '@react-three/drei'
 
 function Car() {
   const { scene } = useGLTF('/scene.gltf')
@@ -41,7 +41,7 @@ const Model = () => {
           
           <Stage environment="studio" intensity={0.5}>
             <Car />
-            <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
+            {/* <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
           </Stage>
         </Suspense>
       </Canvas>
