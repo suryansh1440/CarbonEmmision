@@ -26,7 +26,7 @@ const Header = () => {
   }
 
     return (
-        <header className='fixed top-0 z-50 lg:pt-0 pt-1 bg-white shadow-md w-full lg:h-[10vh] h-[18vh]'>
+        <header className='fixed top-0 z-50 lg:pt-0 pt-1 bg-white shadow-md w-full lg:h-[10%] h-[18%]'>
 
             <div className='container mx-auto lg:px-8 px-4 flex items-center justify-between'>
                 {/* Logo */}
