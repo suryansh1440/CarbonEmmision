@@ -9,12 +9,14 @@ import UserMenu from './UserMenu';
 import { LuContact } from "react-icons/lu";
 import { MdAccountCircle } from "react-icons/md";
 import { MdLogin } from "react-icons/md";
+import useIsMobile from '../hooks/useIsMobile';
 
 const Header = () => {
     const [isAccountOpen, setIsAccountOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isSearch = location.pathname === "/search";
+  const isMobile = useIsMobile();
   const user = useSelector((state) => state.user);
 
   const handleAccount = () => {
@@ -26,9 +28,15 @@ const Header = () => {
   }
 
     return (
-        <header className='fixed top-0 z-50 lg:pt-0 pt-1 bg-white shadow-md w-full lg:h-[10%] h-[15%]'>
+        <header className={`fixed top-0 z-50 lg:pt-0 pt-1 bg-white shadow-md w-full lg:h-[10%] ${!isSearch ? 'h-[15%]' : 'h-[8%]'}`}>
 
-            <div className='container mx-auto lg:px-8 px-4 flex items-center justify-between'>
+          {
+            isSearch && isMobile ? (<div className='mt-1'>
+              <Link to="/search" className='lg:hidden block absolute w-[95%] left-1/2 transform -translate-x-1/2'>
+                      <Search />
+                  </Link>
+              </div>) : (<>
+                <div className='container mx-auto lg:px-8 px-4 flex items-center justify-between'>
                 {/* Logo */}
                 <Link to="/" className='flex items-center lg:w-[70px] w-[50px]    ml-4'>
                     <img
@@ -101,6 +109,11 @@ const Header = () => {
                     <Search />
                 </Link>
             </div>
+            </>
+              )
+          }
+
+            
 
         </header>
     )
