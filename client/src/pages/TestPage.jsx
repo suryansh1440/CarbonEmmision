@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import SummeryApi from '../common/SummeryApi';
 import Axios from '../utils/Axios';
@@ -9,7 +9,6 @@ import confetti from 'canvas-confetti';
 
 const TestPage = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,9 +30,11 @@ const TestPage = () => {
         setShowResults(false);
         setSelectedAnswers({});
 
+        // Initialize Gemini AI
         const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
+        // Create prompt for generating questions
         const prompt = `Create 10 multiple choice questions about "${topic}". Return ONLY a JSON array with no additional text or formatting. Each object in the array should have exactly these properties:
         {
           "question": "the question text",
@@ -42,10 +43,12 @@ const TestPage = () => {
         }
         Make sure the response is valid JSON that can be parsed directly.`;
 
+        // Generate content
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
         
+        // Clean the response text
         const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
         
         try {
@@ -105,12 +108,11 @@ const TestPage = () => {
 
   useEffect(() => {
     if (!showResults && questions.length > 0) {
-      setTimeLeft(60);
+      setTimeLeft(60); // 60 seconds per question
       const timer = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
             clearInterval(timer);
-            handleTimeUp();
             return 0;
           }
           return prev - 1;
@@ -120,22 +122,6 @@ const TestPage = () => {
       return () => clearInterval(timer);
     }
   }, [currentQuestionIndex, showResults, questions.length]);
-
-  const handleTimeUp = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      // If no answer was selected, mark it as incorrect
-      if (!selectedAnswers[currentQuestionIndex]) {
-        setSelectedAnswers(prev => ({
-          ...prev,
-          [currentQuestionIndex]: -1 // Using -1 to indicate timeout
-        }));
-        setStreak(0);
-      }
-      setCurrentQuestionIndex(prev => prev + 1);
-    } else if (!showResults) {
-      handleSubmit();
-    }
-  };
 
   const handleAnswerSelect = (questionIndex, optionIndex) => {
     if (timeLeft === 0) return;
@@ -151,6 +137,7 @@ const TestPage = () => {
       }, 500);
     }
 
+    // Update streak
     if (questions[questionIndex].correctAnswer === optionIndex) {
       setStreak(prev => prev + 1);
     } else {
@@ -182,6 +169,7 @@ const TestPage = () => {
         }
       });
 
+      // Fetch updated user details
       const userResponse = await Axios({
         method: SummeryApi.getUserDetails.method,
         url: SummeryApi.getUserDetails.url,
@@ -196,10 +184,6 @@ const TestPage = () => {
     } catch (error) {
       console.error('Error updating answers:', error);
     }
-  };
-
-  const handleGoHome = () => {
-    navigate('/');
   };
 
   const getOptionStyle = (questionIndex, optionIndex) => {
@@ -224,12 +208,6 @@ const TestPage = () => {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-red-600">Invalid Parameters</h2>
           <p className="mt-2 text-gray-600">Missing topic or user information.</p>
-          <button
-            onClick={handleGoHome}
-            className="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            Go Home
-          </button>
         </div>
       </div>
     );
@@ -262,12 +240,6 @@ const TestPage = () => {
           </div>
           <h2 className="text-2xl font-bold text-red-600">Error</h2>
           <p className="mt-2 text-gray-600">{error}</p>
-          <button
-            onClick={handleGoHome}
-            className="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            Go Home
-          </button>
         </div>
       </div>
     );
@@ -414,18 +386,12 @@ const TestPage = () => {
           )}
 
           {showResults && (
-            <div className="mt-10 space-y-4">
+            <div className="mt-10 transform transition-all duration-300">
               <button
                 onClick={() => window.location.reload()}
                 className="w-full py-4 px-6 rounded-xl text-white font-bold text-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
               >
                 Take Another Test
-              </button>
-              <button
-                onClick={handleGoHome}
-                className="w-full py-4 px-6 rounded-xl text-white font-bold text-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Go Home
               </button>
             </div>
           )}
