@@ -68,19 +68,19 @@ const Contact = () => {
         {
             icon: <FiMail className="w-6 h-6" />,
             title: 'Email',
-            value: 'support@kidtouter.com',
-            link: 'mailto:support@kidtouter.com'
+            value: 'Suryansh1440@gmail.com',
+            link: 'mailto:suryansh1440@gmail.com'
         },
         {
             icon: <FiPhone className="w-6 h-6" />,
             title: 'Phone',
-            value: '+1 (555) 123-4567',
-            link: 'tel:+15551234567'
+            value: '+91 7054842131',
+            link: 'tel:+91 7054842131'
         },
         {
             icon: <FiMapPin className="w-6 h-6" />,
             title: 'Address',
-            value: '123 Education Street, Learning City, ED 12345',
+            value: 'Lovely Professional University',
             link: 'https://maps.google.com'
         }
     ];
@@ -162,7 +162,7 @@ const Contact = () => {
                             </label>
                         </div>
                     </div>
-                    
+
                     <div className="space-y-6 md:col-span-2">
                         <div className="relative">
                             <input
@@ -221,7 +221,7 @@ const Contact = () => {
                 className="mt-16 rounded-3xl overflow-hidden shadow-2xl border-8 border-white"
             >
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1!2d-73.98!3d40.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMCcwMC4wIk4gNzPCsDU4JzQ4LjAiVw!5e0!3m2!1sen!2sus!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.856477256904!2d75.72223331533209!3d31.273345022205242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a6bf703e5d015%3A0x8252c67ff4242c5a!2sLovely%20Professional%20University!5e0!3m2!1sen!2sin!4v1615972586449"
                     width="100%"
                     height="450"
                     className="filter grayscale hover:grayscale-0 transition-all duration-500"
@@ -229,8 +229,9 @@ const Contact = () => {
                     allowFullScreen=""
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Company Location Map"
+                    title="Lovely Professional University Location Map"
                 />
+
             </motion.div>
         </motion.div>
     );
