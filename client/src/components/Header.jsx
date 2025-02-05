@@ -86,7 +86,7 @@ const Header = () => {
 
                       </div>
                       {isAccountOpen && (
-                        <div className='absolute top-12 right-0'>
+                        <div className={`absolute ${isMobile ? 'top-10' : 'top-12'} z-51 right-0`}>
                           <div className='bg-white p-4 rounded-lg lg:shadow-md min-w-[250px]'>
                           <UserMenu handleCloseAccount={handleCloseAccount} />
                           </div>
