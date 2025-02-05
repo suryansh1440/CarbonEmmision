@@ -43,10 +43,6 @@ const router = createBrowserRouter([
                 element:<Pratice/>
             },
             {
-                path:"/test",
-                element:<TestPage/>
-            },
-            {
                 path:"/dashboard",
                 element:<Dashboard/>,
                 children:[
@@ -65,6 +61,10 @@ const router = createBrowserRouter([
     {
         path:"/verify-email",
         element:<VerifyEmail/>
+    },
+    {
+        path:"/test",
+        element:<TestPage/>
     },
     
 ]);

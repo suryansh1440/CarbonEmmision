@@ -27,6 +27,7 @@ const App = () => {
       <main className={`flex-grow min-h-[calc(100vh-10rem)] lg:mt-0 ${isSearch ? 'mt-0' : 'mt-10'} transition-all duration-300 pt-16`}>
         <Outlet />
       </main>
+      
       <Footer />
       <BackToTopButton/>
       <Toaster/>
