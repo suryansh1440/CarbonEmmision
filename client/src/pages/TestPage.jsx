@@ -6,6 +6,7 @@ import Axios from '../utils/Axios';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from '../store/userSlice';
 import confetti from 'canvas-confetti';
+import { useNavigate } from 'react-router-dom';
 
 const TestPage = () => {
   const [searchParams] = useSearchParams();
@@ -21,6 +22,7 @@ const TestPage = () => {
   const topic = searchParams.get('topic');
   const userId = searchParams.get('id');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -386,12 +388,18 @@ const TestPage = () => {
           )}
 
           {showResults && (
-            <div className="mt-10 transform transition-all duration-300">
+            <div className="mt-10 transform transition-all duration-300 flex flex-col items-center">
               <button
                 onClick={() => window.location.reload()}
-                className="w-full py-4 px-6 rounded-xl text-white font-bold text-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                className="w-full py-4 px-6 mb-2 rounded-xl text-white font-bold text-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
               >
                 Take Another Test
+              </button>
+              <button
+                onClick={() => navigate('/')}
+                className="w-full py-4 px-6 mb-2 rounded-xl text-white font-bold text-lg bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 "
+              >
+              Go Home
               </button>
             </div>
           )}
