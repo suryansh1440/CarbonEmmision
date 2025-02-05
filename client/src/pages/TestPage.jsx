@@ -310,71 +310,74 @@ const TestPage = () => {
             )}
           </div>
 
-          <div className="space-y-6">
-            {questions.map((q, index) => (
-              <div 
-                key={index}
-                className={`bg-white rounded-2xl p-4 shadow-lg transition-all duration-500 transform ${
-                  index === currentQuestionIndex ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 hidden'
-                } hover:shadow-xl border border-gray-100`}
-              >
-                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3 font-bold">
-                    {index + 1}
-                  </span>
-                  {q.question}
-                </h3>
-                <div className="space-y-3">
-                  {q.options.map((option, optIndex) => (
-                    <button
-                      key={optIndex}
-                      onClick={() => !showResults && handleAnswerSelect(index, optIndex)}
-                      disabled={showResults || timeLeft === 0}
-                      className={`group w-full text-left p-4 rounded-xl border-2 transition-all duration-300 transform hover:scale-[1.01] ${
-                        timeLeft === 0 ? 'opacity-50 cursor-not-allowed' : ''
-                      } ${
-                        getOptionStyle(index, optIndex)
-                      } ${
-                        !showResults && selectedAnswers[index] === optIndex
-                          ? 'ring-2 ring-indigo-500 ring-offset-2'
-                          : ''
-                      }`}
-                    >
-                      <div className="flex items-center">
-                        <div className={`w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center ${
-                          selectedAnswers[index] === optIndex
-                            ? 'border-indigo-500 bg-indigo-500'
-                            : 'border-gray-300 group-hover:border-indigo-400'
-                        }`}>
-                          {selectedAnswers[index] === optIndex && (
-                            <div className="w-2 h-2 rounded-full bg-white" />
+          {
+            !showResults && (<div className="space-y-6">
+              {questions.map((q, index) => (
+                <div 
+                  key={index}
+                  className={`bg-white rounded-2xl p-4 shadow-lg transition-all duration-500 transform ${
+                    index === currentQuestionIndex ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0 hidden'
+                  } hover:shadow-xl border border-gray-100`}
+                >
+                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 mr-3 font-bold">
+                      {index + 1}
+                    </span>
+                    {q.question}
+                  </h3>
+                  <div className="space-y-3">
+                    {q.options.map((option, optIndex) => (
+                      <button
+                        key={optIndex}
+                        onClick={() => !showResults && handleAnswerSelect(index, optIndex)}
+                        disabled={showResults || timeLeft === 0}
+                        className={`group w-full text-left p-4 rounded-xl border-2 transition-all duration-300 transform hover:scale-[1.01] ${
+                          timeLeft === 0 ? 'opacity-50 cursor-not-allowed' : ''
+                        } ${
+                          getOptionStyle(index, optIndex)
+                        } ${
+                          !showResults && selectedAnswers[index] === optIndex
+                            ? 'ring-2 ring-indigo-500 ring-offset-2'
+                            : ''
+                        }`}
+                      >
+                        <div className="flex items-center">
+                          <div className={`w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center ${
+                            selectedAnswers[index] === optIndex
+                              ? 'border-indigo-500 bg-indigo-500'
+                              : 'border-gray-300 group-hover:border-indigo-400'
+                          }`}>
+                            {selectedAnswers[index] === optIndex && (
+                              <div className="w-2 h-2 rounded-full bg-white" />
+                            )}
+                          </div>
+                          <span className="text-lg">{option}</span>
+                          {showResults && q.correctAnswer === optIndex && (
+                            <span className="ml-auto text-green-500">
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                              </svg>
+                            </span>
                           )}
                         </div>
-                        <span className="text-lg">{option}</span>
-                        {showResults && q.correctAnswer === optIndex && (
-                          <span className="ml-auto text-green-500">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                          </span>
-                        )}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-                {showResults && selectedAnswers[index] !== q.correctAnswer && (
-                  <div className="mt-3 p-3 bg-red-50 rounded-lg border border-red-100">
-                    <p className="text-sm text-red-600 flex items-center">
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      Correct answer: {q.options[q.correctAnswer]}
-                    </p>
+                      </button>
+                    ))}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+                  {showResults && selectedAnswers[index] !== q.correctAnswer && (
+                    <div className="mt-3 p-3 bg-red-50 rounded-lg border border-red-100">
+                      <p className="text-sm text-red-600 flex items-center">
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Correct answer: {q.options[q.correctAnswer]}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>)
+          }
+          
 
           {!showResults && Object.keys(selectedAnswers).length === questions.length && (
             <div className="mt-10 transform transition-all duration-300">
