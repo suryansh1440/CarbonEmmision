@@ -58,8 +58,8 @@ const Header = () => {
                 {/* Navigation Links */}
                 <nav className='items-center space-x-8 flex'>
                   {
-                    user?._id && ( <Link to="/Practice" className=" text-lg hover:text-blue-600 transition-colors">
-                      Practice
+                    user?._id && ( <Link to="/Calculate" className=" text-lg hover:text-blue-600 transition-colors">
+                      Calculate
                   </Link>)
                   }
                

@@ -1,52 +1,85 @@
-import React from 'react'
-import BookModel from '../components/BookModel'
-import CourseVideos from '../components/CourseVideos'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Stars, Environment } from '@react-three/drei'
+import Earth from '../components/Earth'
+import { gsap } from 'gsap'
 
 const Home = () => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
+
+  useEffect(() => {
+    const preventDefault = (e) => {
+      const delta = e.deltaY;
+      const container = document.getElementById('scroll-container');
+      container.scrollBy({
+        top: delta,
+        behavior: 'smooth'
+      });
+      e.preventDefault();
+    };
+    
+    document.addEventListener('wheel', preventDefault, { passive: false });
+    
+    return () => {
+      document.removeEventListener('wheel', preventDefault);
+    };
+  }, []);
+
+  useEffect(() => {
+    gsap.fromTo(".title", { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1, delay: 0.5 });
+    gsap.fromTo(".subtitle", { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1, delay: 1 });
+    gsap.fromTo(".cta-button", { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1, delay: 1.5 });
+  }, []);
+
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="relative h-screen">
-        <div className="absolute inset-0">
-          <BookModel />
+      <div className="relative w-full h-screen snap-start bg-gradient-to-b from-[#000000] via-[#001233] to-[#001845]">
+        <div className="absolute inset-0 z-0">
+          <Canvas camera={{ position: [0, 0, 15], fov: 40 }}>
+            <color attach="background" args={['#000000']} />
+            
+            <ambientLight intensity={2} />
+            <pointLight 
+              position={[0, 0, 5]}
+              intensity={2}
+            />
+            
+            <Earth position={[0, 0, 0]} scale={4.5} />
+            
+            <Stars 
+              radius={90} 
+              depth={60} 
+              count={10000} 
+              factor={4} 
+              saturation={0}
+              fade={true}
+              speed={1}
+            />
+            <OrbitControls 
+              enableZoom={false}
+              enablePan={false}
+              enableRotate={true}
+              zoomSpeed={0.6}
+              panSpeed={0.5}
+              rotateSpeed={0.4}
+              minPolarAngle={Math.PI / 2.5}
+              maxPolarAngle={Math.PI / 1.5}
+            />
+            <Environment preset="night" />
+          </Canvas>
         </div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
-          <h1 className="text-6xl font-bold text-white tracking-widest mb-4">Welcome to Kid Tutor</h1>
-          <p className="text-2xl text-gray-200 mb-8">Discover Amazing Experiences</p>
-          {user._id ? (
-            <Link 
-              to="/practice" 
-              className="px-8 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold"
-            >
-              Get Started
-            </Link>
-          ) : (
-            <Link 
-              to="/login" 
-              className="px-12 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold"
-            >
-              Login
-            </Link>
-          )}
-        </div>
-      </div>
-
-      {/* Course Videos Section */}
-      <CourseVideos />
-
-      {/* Call to Action Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Start Your Learning Journey?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join thousands of students already learning with us
-          </p>
+        <div className="absolute inset-0 flex items-center justify-center flex-col h-screen z-10">
+          <div className="title text-white text-6xl font-bold">CarbonTally</div>
+          <div className="subtitle text-white text-2xl mt-6">Track your carbon footprint</div>
+          <Link
+            to={user?._id ? "" : "/login"}
+            className="cta-button mt-8 bg-white text-black px-8 py-4 rounded-lg shadow-lg hover:bg-gray-200 transition-colors text-xl"
+          >
+            {user?._id ? "Calculate your Emission" : "Login"}
+          </Link>
         </div>
       </div>
     </div>

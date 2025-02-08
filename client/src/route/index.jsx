@@ -6,12 +6,11 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import VerifyEmail from "../pages/VerifyEmail";
-import Pratice from "../pages/Pratice";
-import TestPage from "../pages/TestPage";
 import Dashboard from "../layout/Dashboard";
 import Profile from "../pages/Profile";
+import Calculate from "../pages/Calulate";
+import Emmsion from "../pages/Emmsion";
 import Performance from "../pages/Performance";
-
 
 const router = createBrowserRouter([
     {
@@ -39,8 +38,12 @@ const router = createBrowserRouter([
                 element:<Register/>
             },
             {
-                path:"/Practice",
-                element:<Pratice/>
+                path:"/emmsion/",
+                element:<Emmsion/>
+            },
+            {
+                path:"/calculate",
+                element:<Calculate/>
             },
             {
                 path:"/dashboard",
@@ -51,9 +54,10 @@ const router = createBrowserRouter([
                         element:<Profile/>
                     },
                     {
-                        path:"performance",
+                        path:"Performance",
                         element:<Performance/>
                     }
+
                 ]
             },  
         ],
@@ -61,10 +65,6 @@ const router = createBrowserRouter([
     {
         path:"/verify-email",
         element:<VerifyEmail/>
-    },
-    {
-        path:"/test",
-        element:<TestPage/>
     },
     
 ]);

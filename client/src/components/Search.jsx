@@ -35,20 +35,13 @@ const Search = () => {
                         <TypeAnimation
                             sequence={[
                                 // Same substring at the start will only be typed once, initially
-                                'Search "Math"',
+                                'Search "Electronics"',
                                 1000,
-                                'Search "English"',
+                                'Search "Snacks and Beverages"',
                                 1000,
-                                'Search "Social Science"',
+                                'Search "Daily life"',
                                 1000,
-                                'Search "Geography"',
-                                1000,
-                                'Search "Physics"',
-                                1000,
-                                'Search "Chemistry"',
-                                1000,
-                                'Search "Biology"',
-                                1000,
+                               
 
                             ]}
                             speed={60}
